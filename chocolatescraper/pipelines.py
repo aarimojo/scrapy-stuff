@@ -11,6 +11,8 @@ from scrapy.exceptions import DropItem
 
 import mysql.connector
 from sqlite3 import adapters
+from dotenv import load_dotenv
+from os import getenv
 
 
 class ChocolatescraperPipeline:
@@ -48,8 +50,8 @@ class SavingToMysqlPipeline(object):
     def create_connection(self):
         self.conn = mysql.connector.connect(
             host='localhost',
-            user='root',
-            passwd='1234',
+            user=getenv('MYSQL_USER'),
+            passwd=getenv('MYSQL_PASSWORD'),
             database='chocolate_scraping'
         )
         self.curr = self.conn.cursor()
